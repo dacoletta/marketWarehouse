@@ -54,8 +54,8 @@ const logout = () => {
     router.push('/login');
 };
 const items = ref([
-    { title: 'About', to: '/about', condition: authenticated.value },
     { title: 'Products', to: '/products', condition: authenticated.value },
+    { title: 'About', to: '/about', condition: authenticated.value },
     { title: 'Create', to: '/products/create', condition: authenticated.value },
     { title: 'Logout', to: '/', click: logout, condition: authenticated.value },
 ]);
