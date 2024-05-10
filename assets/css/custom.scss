@@ -1,0 +1,80 @@
+$iliad-color: "#d32f2f";
+
+
+main,
+main {
+    background-color: #F2F2F2
+}
+
+button.btn-icon {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    border-radius: none;
+    box-shadow: none
+}
+
+
+.v-toolbar__content {
+    background-color: white;
+    color: #d32f2f;
+}
+
+.v-card-text {
+    margin: 0 5em;
+    // 1 em
+}
+
+a.custom-link {
+    text-decoration: none;
+    color: #d32f2f;
+}
+
+.content-page {
+    padding: 2em 5em;
+    background: white;
+    border-radius: 10px;
+    // 2em
+}
+
+.v-window.v-theme--light.v-carousel {
+    border-radius: 10px;
+}
+
+@media (max-width: 600px) {
+    .v-toolbar-title {
+      font-size: 15px;
+    }
+    .content-page {
+        padding: 2em;
+    }
+    .v-card-text {
+        margin: 0 1em;
+        // 1 em
+    }
+  }
+
+i {
+    color:#013540;
+}
+
+.v-navigation-drawer__content {
+background-color: #013540;
+}
+
+div.v-list-item:has(.v-list-item__content):has(a.router-link-exact-active) {
+    background-color: #d32f2f;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+}
+nav a.router-link-exact-active {
+    color: white;
+}
+
+.v-card--variant-elevated {
+    box-shadow: 0px 2px 1px -1px rgba(1, 53, 64, 0.2), 0px 1px 1px 0px rgba(1, 53, 64, 0.14), 0px 1px 3px 0px rgba(1, 53, 64, 0.12);
+}
