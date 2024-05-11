@@ -22,6 +22,7 @@ import { CONSTANTS as C } from '~/constants/constants';
 import { useProductStore } from '~/store/productStore';
 let openDeleteDialog = ref(false);
 const productStore = await useProductStore();
+const snackbar = useSnackbar();
 let idProductSelected =  null;
 const state = reactive({
     products: productStore.products
@@ -35,6 +36,10 @@ const confirmDeleteDialog = (idProduct) => {
 function deleteProduct() {
     openDeleteDialog.value = false;
     productStore.deleteProduct(idProductSelected);
+    snackbar.add({
+    type: 'success',
+    text: 'Product correctly deleted.'
+})
     
 }
 

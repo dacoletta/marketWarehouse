@@ -79,3 +79,8 @@ nav a.router-link-exact-active {
 .v-overlay-container .v-card-actions {
     padding: 1em;
 }
+
+.v-toolbar-title__placeholder a {
+    text-decoration: none;
+    color: #d32f2f;
+}

@@ -5,7 +5,7 @@
                 <v-app-bar color="primary" prominent>
                     <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer" v-if="authenticated"></v-app-bar-nav-icon>
 
-                    <v-toolbar-title>{{ title }}</v-toolbar-title>
+                    <v-toolbar-title><NuxtLink to="/">{{ title }}</NuxtLink></v-toolbar-title>
 
                     <v-spacer></v-spacer>
 
@@ -33,7 +33,7 @@
             </v-layout>
         </v-card>
     </ClientOnly>
-
+    <NuxtSnackbar />
 </template>
 
 <script setup lang="ts">

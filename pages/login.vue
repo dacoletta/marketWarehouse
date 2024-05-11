@@ -53,7 +53,7 @@ import { useAuthStore } from '~/store/authStore';
 const { authenticateUser } = useAuthStore();
 const { authenticated } = storeToRefs(useAuthStore());
 const defaultUser = { username: 'atuny0', password: '9uQFF1Lh'};
-
+const snackbar = useSnackbar();
 const user = ref({
   username: '',
   password: '',
@@ -67,6 +67,10 @@ const login = async () => {
   await authenticateUser(user.value);
   if (authenticated.value) {
     router.push('/');
+    snackbar.add({
+    type: 'success',
+    text: 'Login succesful. Welcome to Market Warehouse'
+})
   } else {
     dialog.value = true;
   }

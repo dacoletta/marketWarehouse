@@ -1,5 +1,10 @@
 <template>
     <div>
+        <div style="display: flex; justify-content: end;">
+                <v-btn variant="flat" color="error" class="me-4" @click="router.push('/login')">
+                            {{ C.BACK + ' to LOGIN'}}
+                        </v-btn>
+            </div>
         <form @submit.prevent="submit">
             <v-row class="justify-center align-center">
                 <v-col cols="12" md="5">
@@ -15,10 +20,14 @@
                     </v-radio-group>
                     <v-text-field v-model="username.value.value" :error-messages="username.errorMessage.value"
                         :label="C.USERNAME"></v-text-field>
-                    <v-text-field :type="showPwd ? 'text' : 'password'" :append-inner-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" @click:append-inner="showPwd = !showPwd" v-model="password.value.value" :error-messages="password.errorMessage.value"
-                        :label="C.PASSWORD"></v-text-field>
-                    <v-text-field :type="showRepeatPwd ? 'text' : 'password'" :append-inner-icon="showRepeatPwd ? 'mdi-eye' : 'mdi-eye-off'" @click:append-inner="showRepeatPwd = !showRepeatPwd" v-model="repeatPassword.value.value" :error-messages="repeatPassword.errorMessage.value"
-                        :label="C.REPEAT_PASSWORD"></v-text-field>
+                    <v-text-field :type="showPwd ? 'text' : 'password'"
+                        :append-inner-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'"
+                        @click:append-inner="showPwd = !showPwd" v-model="password.value.value"
+                        :error-messages="password.errorMessage.value" :label="C.PASSWORD"></v-text-field>
+                    <v-text-field :type="showRepeatPwd ? 'text' : 'password'"
+                        :append-inner-icon="showRepeatPwd ? 'mdi-eye' : 'mdi-eye-off'"
+                        @click:append-inner="showRepeatPwd = !showRepeatPwd" v-model="repeatPassword.value.value"
+                        :error-messages="repeatPassword.errorMessage.value" :label="C.REPEAT_PASSWORD"></v-text-field>
 
                     <div id="buttons-container">
 
@@ -87,6 +96,7 @@ const gender = useField('gender');
 const username = useField('username');
 const password = useField('password');
 const repeatPassword = useField('repeatPassword');
+const snackbar = useSnackbar();
 gender.value.value = "F"
 const submit = handleSubmit(async (values: any) => {
     // Salvo i dati in un oggetto
@@ -104,6 +114,10 @@ const submit = handleSubmit(async (values: any) => {
     authStore.addUser(newUser);
     localStorage.setItem('users', JSON.stringify(authStore.users));
     router.push('/');
+    snackbar.add({
+        type: 'success',
+        text: 'User correctly added.'
+    })
 
 })
 
@@ -113,4 +127,5 @@ const submit = handleSubmit(async (values: any) => {
 #buttons-container {
     display: flex;
     justify-content: end;
-}</style>
+}
+</style>

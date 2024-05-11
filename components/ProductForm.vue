@@ -1,9 +1,14 @@
 <template>
     <div>
         <form @submit.prevent="submit">
+            <div style="display: flex; justify-content: end;">
+                <v-btn variant="flat" color="error" class="me-4" @click="router.push('/products')">
+                            {{ C.BACK + ' to Products'}}
+                        </v-btn>
+            </div>
             <v-row class="justify-center align-center">
                 <v-col cols="12" md="5">
-                    <v-text-field v-model="title.value.value" :counter="10" :error-messages="title.errorMessage.value"
+                    <v-text-field v-model="title.value.value" :error-messages="title.errorMessage.value"
                         :label="C.TITLE"></v-text-field>
 
                     <v-textarea v-model="description.value.value" :counter="300"
@@ -60,41 +65,43 @@
 import { CONSTANTS as C } from '~/constants/constants';
 import { useField, useForm } from 'vee-validate';
 import { useProductStore } from '~/store/productStore';
+import { routerKey } from 'vue-router';
+const router = useRouter();
 let openDialog = ref(false);
 let formValues: any = null;
 const productStore = await useProductStore();
 const { handleSubmit, handleReset } = useForm({
     validationSchema: {
         title(value: string | any[]) {
-            if (value?.length >= 2) return true
+            if (value?.toString().length >= 2) return true
             return 'Title needs to be at least 2 characters.'
         },
         description(value: string | any[]) {
-            if (value?.length > 20 && value?.length < 300) return true
+            if (value?.toString().length > 20 && value?.length < 300) return true
             return 'Description needs to be at least 20 characters and maximum 300.'
         },
         brand(value: string | any[]) {
-            if (value?.length >= 2) return true
+            if (value?.toString().length >= 2) return true
 
             return 'Brand needs to be at least 2 characters.'
         },
         price(value: string | any[]) {
-            if (value?.length >= 1) return true
+            if (value?.toString().length >= 1) return true
 
             return 'Price needs to be at least 1 characters.'
         },
         stock(value: string | any[]) {
-            if (value?.length >= 1) return true
+            if (value?.toString().length >= 1) return true
 
             return 'Stock needs to be at least 1 characters.'
         },
         discountPercentage(value: string | any[]) {
-            if (value?.length >= 1) return true
+            if (value?.toString().length >= 1) return true
 
             return 'Discount percentage needs to be at least 1 characters.'
         },
         category(value: string | any[]) {
-            if (value?.length >= 1) return true
+            if (value?.toString().length >= 1) return true
 
             return 'Category needs to be at least 1 characters.'
         },
@@ -122,6 +129,7 @@ const setInitialValues = async () => {
         discountPercentage.value.value = prod.discountPercentage;
         stock.value.value = prod.stock;
         brand.value.value = prod.brand;
+        category.value.value = prod.category;
     }
 }
 

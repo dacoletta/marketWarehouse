@@ -9,9 +9,7 @@ import { useProductStore } from '~/store/productStore';
 
 const idProduct = useRoute().query.idProduct;
 const instance = getCurrentInstance();
-
-// Manage submit
-
+const snackbar = useSnackbar();
 const productStore = useProductStore();
 const submitted = (formValue: any) => {
   if (idProduct) {
@@ -32,18 +30,26 @@ const createProduct = (formValue: any) => {
       res.images = ['']
       await productStore.addProduct(res);
       localStorage.setItem('products', JSON.stringify(productStore.products));
+      snackbar.add({
+        type: 'success',
+        text: 'Product correctly created.'
+      })
       navigateTo('/products');
     });
 }
 const editProduct = (formValue: any) => {
   fetch('https://dummyjson.com/products/' + idProduct, {
-    method: 'PUT', 
+    method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(formValue)
   })
     .then(res => res.json())
-    .then(async (res)=> {
+    .then(async (res) => {
       await productStore.updateProduct(res);
+      snackbar.add({
+        type: 'success',
+        text: 'Product correctly modified.'
+      })
       navigateTo('/products');
     });
 }

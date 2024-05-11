@@ -8,6 +8,7 @@ export default defineNuxtConfig({
   },
   css: ['assets/variables.scss', 'assets/css/custom.scss'],
   modules: [
+    'nuxt-snackbar',
     '@pinia/nuxt',
     (_options, nuxt) => {
       nuxt.hooks.hook('vite:extendConfig', (config) => {
@@ -23,4 +24,9 @@ export default defineNuxtConfig({
       },
     },
   },
+  snackbar: {
+    bottom: true,
+    right: true,
+    duration: 5000
+  }
 })
