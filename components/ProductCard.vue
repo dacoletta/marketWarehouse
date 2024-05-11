@@ -20,7 +20,7 @@
                     <v-icon>mdi-eye-outline</v-icon>
                 </v-btn>
             </NuxtLink>
-            <NuxtLink :to="`/products/create?idProduct=${product.id}`">
+            <NuxtLink :to="`/products/form?idProduct=${product.id}`">
                 <v-btn icon class="btn-icon">
                     <v-icon>mdi-pencil</v-icon>
                 </v-btn>

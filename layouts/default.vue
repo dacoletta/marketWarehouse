@@ -56,7 +56,7 @@ const logout = () => {
 const items = ref([
     { title: 'Products', to: '/products', condition: authenticated.value },
     { title: 'About', to: '/about', condition: authenticated.value },
-    { title: 'Create', to: '/products/create', condition: authenticated.value },
+    { title: 'Create', to: '/products/form', condition: authenticated.value },
     { title: 'Logout', to: '/', click: logout, condition: authenticated.value },
 ]);
 
