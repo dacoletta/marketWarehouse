@@ -2,15 +2,15 @@
   <v-sheet class="mx-auto">
     <v-form @submit.prevent="login">
       <v-text-field v-model="user.username" required label="Username"></v-text-field>
-      <v-text-field :type="showPwd ? 'text' : 'password'" :append-inner-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" @click:append-inner="showPwd = !showPwd" v-model="user.password" label="Password"></v-text-field>
-      <v-btn class="mt-2" color="success" block type="submit">
-        Login
+      <v-text-field :type="showPwd ? 'text' : 'password'" :append-inner-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" @click:append-inner="showPwd = !showPwd" v-model="user.password" :label="C.PASSWORD"></v-text-field>
+      <v-btn class="mt-2" color="success" block type="submit" :disabled="!user.username || !user.password">
+        {{ C.LOGIN }}
       </v-btn>
       <v-btn class="mt-2" color="error" block @click="resetForm">
-        Reset
+        {{  C.RESET }}
       </v-btn>
       <v-btn class="mt-2" block @click="useDefaultValues">
-        Use default values
+        {{ C.USE_DEFAULT_VALUES }}
       </v-btn>
       <v-card-text class="text-center">
         <a
@@ -18,7 +18,7 @@
           href="/addUser"
           rel="noopener noreferrer"
         >
-          New user?
+          {{ C.NEW_USER }}
         </a>
       </v-card-text>
     </v-form>
@@ -45,6 +45,7 @@
 </template>
 
 <script lang="ts" setup>
+import { CONSTANTS as C } from '~/constants/constants';
 import { ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '~/store/authStore';
