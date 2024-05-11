@@ -57,7 +57,7 @@
 </template>
 
 <script setup lang="ts">
-import { CONSTANTS as C, CONSTANTS } from '~/constants/constants';
+import { CONSTANTS as C } from '~/constants/constants';
 import { useField, useForm } from 'vee-validate';
 import { useProductStore } from '~/store/productStore';
 let openDialog = ref(false);

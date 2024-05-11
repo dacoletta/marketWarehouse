@@ -75,3 +75,7 @@ nav a.router-link-exact-active {
 .v-card--variant-elevated {
     box-shadow: 0px 2px 1px -1px rgba(1, 53, 64, 0.2), 0px 1px 1px 0px rgba(1, 53, 64, 0.14), 0px 1px 3px 0px rgba(1, 53, 64, 0.12);
 }
+
+.v-overlay-container .v-card-actions {
+    padding: 1em;
+}
