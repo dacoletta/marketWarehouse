@@ -9,7 +9,7 @@
 
                     <v-spacer></v-spacer>
 
-                    <v-btn icon="mdi-logout" variant="text"></v-btn>
+                    <v-btn icon="mdi-logout" variant="text" @click="logout" title="logout"></v-btn>
                 </v-app-bar>
 
                 <v-navigation-drawer v-model="drawer" :location="$vuetify.display.mobile ? 'left' : undefined" 
