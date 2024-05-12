@@ -51,7 +51,7 @@ if(!image) {
 #profile-image {
     margin-bottom: 2em;
     width: 300px;
-    height: 300px;
+    height: 300px !important;
     margin-right: auto;
     margin-left: auto
 }

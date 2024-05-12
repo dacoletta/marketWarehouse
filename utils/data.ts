@@ -13,6 +13,7 @@ export function parseJson(val: string | null) {
 }
 
 export function getNewId(arr: any[]) {
-    const maxId = arr.reduce((max, p) => (p.id > max ? p.id : max), 0);
+    let maxId = arr.reduce((max, p) => (p.id > max ? p.id : max), 0);
+    if(maxId < 100) maxId = 100;
     return maxId + 1;
 }

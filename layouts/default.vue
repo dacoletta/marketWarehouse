@@ -12,8 +12,9 @@
                     </v-toolbar-title>
 
                     <v-spacer></v-spacer>
-                    <span v-if="authenticated">{{ profile.firstName + ' ' + profile.lastName}}</span>
-                    <v-btn v-if="authenticated" icon="mdi-account" variant="text" @click="router.push('/profile');" title="Account"></v-btn>
+                    <span v-if="authenticated">{{ profile.firstName + ' ' + profile.lastName }}</span>
+                    <v-btn v-if="authenticated" icon="mdi-account" variant="text" @click="router.push('/profile');"
+                        title="Account"></v-btn>
                     <v-btn v-if="authenticated" icon="mdi-logout" variant="text" @click="logout" title="logout"></v-btn>
                 </v-app-bar>
 
@@ -53,6 +54,7 @@ const router = useRouter();
 let drawer = ref(false);
 const { snack } = storeToRefs(useSnackbarStore());
 const { profile } = storeToRefs(useProfileStore());
+const profileStore = useProfileStore();
 const snackbar = useSnackbar();
 const { logUserOut } = useAuthStore(); // use authenticateUser action from  auth store
 const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive with storeToRefs
@@ -70,6 +72,13 @@ const items = ref([
     { title: 'Logout', to: '/', click: logout, condition: authenticated.value },
 ]);
 
+
+onMounted(async () => {
+
+    if (profile.value) {
+        profileStore.setProfileByStorage()
+    }
+})
 /**
  * Watch: manage Snackbar (for operation succesfuls)
  */

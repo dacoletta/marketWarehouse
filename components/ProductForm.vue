@@ -4,6 +4,10 @@
             <BackButton :label="C.PRODUCTS" :route="'/products'" :icon="'mdi-arrow-left'"></BackButton>
             <v-row class="justify-center align-center">
                 <v-col cols="12" md="5">
+                    <v-carousel v-if="images" id="carousel">
+                        <v-carousel-item v-for="(image, index) in images" :key="index" :src="image"
+                            cover></v-carousel-item>
+                    </v-carousel>
                     <v-text-field v-model="title.value.value" :error-messages="title.errorMessage.value"
                         :label="C.TITLE"></v-text-field>
 
@@ -46,10 +50,6 @@
             <v-dialog v-model="openDialog" width="auto">
                 <v-card prepend-icon="mdi-alert-circle" :text="C.MSG_CONFIRM_FORM_TEXT"
                     :title="C.MSG_CONFIRM_OPERATION">
-                    <!-- <template v-slot:actions>
-                        <v-btn class="ms-auto" color="error" text="Ok" @click="openDialog = false"></v-btn>
-                        <v-btn class="ms-auto" color="success" text="Ok" @click="confirmForm"></v-btn>
-                    </template> -->
                     <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn :text="C.CLOSE" color="error" variant="flat" @click="openDialog = false"></v-btn>
@@ -65,7 +65,6 @@
 import { CONSTANTS as C } from '~/constants/constants';
 import { useField, useForm } from 'vee-validate';
 import { useProductStore } from '~/store/productStore';
-const router = useRouter();
 let openDialog = ref(false);
 let formValues: any = null;
 const productStore = await useProductStore();
@@ -111,6 +110,7 @@ const discountPercentage = useField('discountPercentage');
 const stock = useField('stock');
 const brand = useField('brand');
 const category = useField<string>('category');
+let images: any = ref(null);
 const setInitialValues = async () => {
     if (idProduct) {
         let prod: any = productStore.products;
@@ -122,9 +122,17 @@ const setInitialValues = async () => {
         stock.value.value = prod.stock;
         brand.value.value = prod.brand;
         category.value.value = prod.category;
+        setImages(prod);
     }
 }
 
+const setImages = (prod: any) => {
+    if(prod.images.length > 0) {
+        images = prod.images;
+    } else {
+        images.push('https://picsum.photos/200/300', 'https://picsum.photos/200/400', 'https://picsum.photos/200/500');
+    }
+}
 const submit = handleSubmit((values: any) => {
     formValues = values;
     openDialog.value = true;
@@ -140,4 +148,18 @@ const confirmForm = () => {
 setInitialValues();
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+#carousel {
+    margin-bottom: 2em;
+    width: 300px;
+    height: 300px !important;
+    margin-right: auto;
+    margin-left: auto
+}
+
+@media (max-width: 600px) {
+    #carousel {
+        width: auto;
+    }
+}
+</style>
