@@ -1,11 +1,7 @@
 <template>
     <div>
         <form @submit.prevent="submit">
-            <div style="display: flex; justify-content: end;">
-                <v-btn variant="flat" color="error" class="me-4" @click="router.push('/products')">
-                    {{ C.BACK + ' to Products' }}
-                </v-btn>
-            </div>
+            <BackButton :label="C.BACK + ' to Products'" :route="'/products'"></BackButton>
             <v-row class="justify-center align-center">
                 <v-col cols="12" md="5">
                     <v-text-field v-model="title.value.value" :error-messages="title.errorMessage.value"

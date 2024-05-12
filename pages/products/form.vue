@@ -3,14 +3,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useField, useForm } from 'vee-validate'
 import { useProductStore } from '~/store/productStore';
+import { useSnackbarStore } from '~/store/snackbarStore';
 
 const idProduct = useRoute().query.idProduct;
-const instance = getCurrentInstance();
-const snackbar = useSnackbar();
 const productStore = useProductStore();
+const { showSnackbar } = useSnackbarStore();
 const submitted = (formValue: any) => {
   if (idProduct) {
     editProduct(formValue);
@@ -30,10 +28,7 @@ const createProduct = (formValue: any) => {
       res.images = ['https://picsum.photos/200/300']
       await productStore.addProduct(res);
       localStorage.setItem('products', JSON.stringify(productStore.products));
-      snackbar.add({
-        type: 'success',
-        text: 'Product correctly created.'
-      })
+      showSnackbar('success', 'Product correctly created.');
       navigateTo('/products');
     });
 }
@@ -46,10 +41,7 @@ const editProduct = (formValue: any) => {
     .then(res => res.json())
     .then(async (res) => {
       await productStore.updateProduct(res);
-      snackbar.add({
-        type: 'success',
-        text: 'Product correctly modified.'
-      })
+      showSnackbar('success', 'Product correctly modified.');
       navigateTo('/products');
     });
 }

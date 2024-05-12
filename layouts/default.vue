@@ -3,16 +3,19 @@
         <v-card>
             <v-layout>
                 <v-app-bar color="primary" prominent>
-                    <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer" v-if="authenticated"></v-app-bar-nav-icon>
+                    <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"
+                        v-if="authenticated"></v-app-bar-nav-icon>
 
-                    <v-toolbar-title><NuxtLink to="/">{{ title }}</NuxtLink></v-toolbar-title>
+                    <v-toolbar-title>
+                        <NuxtLink to="/">{{ title }}</NuxtLink>
+                    </v-toolbar-title>
 
                     <v-spacer></v-spacer>
 
                     <v-btn icon="mdi-logout" variant="text" @click="logout" title="logout"></v-btn>
                 </v-app-bar>
 
-                <v-navigation-drawer v-model="drawer" :location="$vuetify.display.mobile ? 'left' : undefined" 
+                <v-navigation-drawer v-model="drawer" :location="$vuetify.display.mobile ? 'left' : undefined"
                     temporary>
                     <v-list v-for="item in items">
                         <v-list-item>
@@ -27,7 +30,7 @@
                         <div class="content-page">
                             <slot />
                         </div>
-                        
+
                     </v-card-text>
                 </v-main>
             </v-layout>
@@ -41,11 +44,12 @@
 
 import { storeToRefs } from 'pinia'; // import storeToRefs helper hook from pinia
 import { useAuthStore } from '~/store/authStore';
+import { useSnackbarStore } from '~/store/snackbarStore';
 const title = 'Market Warehouse';
 const router = useRouter();
 let drawer = ref(false);
-
-
+const { snack } = storeToRefs(useSnackbarStore());
+const snackbar = useSnackbar();
 
 const { logUserOut } = useAuthStore(); // use authenticateUser action from  auth store
 const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive with storeToRefs
@@ -61,7 +65,17 @@ const items = ref([
     { title: 'Logout', to: '/', click: logout, condition: authenticated.value },
 ]);
 
+
+watch(snack, () => {
+    const { show, content, color } = snack.value;
+    if (show) {
+        snackbar.add({
+            type: color,
+            text: content
+        })
+    }
+
+})
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

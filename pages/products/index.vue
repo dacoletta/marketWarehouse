@@ -1,5 +1,6 @@
 <template>
     <div class="content-page">
+        <BackButton :label="'CREATE PRODUCT'" :route="'/products/form'"></BackButton>
         <v-row>
             <v-col v-for="p in state.products" :key="p.id" cols="12" sm="6" md="3" lg="3">
                 <ProductCard :product="p" @delete-product="confirmDeleteDialog"></ProductCard>
@@ -20,10 +21,12 @@
 <script setup>
 import { CONSTANTS as C } from '~/constants/constants';
 import { useProductStore } from '~/store/productStore';
+import { useSnackbarStore } from '~/store/snackbarStore';
 let openDeleteDialog = ref(false);
 const productStore = await useProductStore();
+const { showSnackbar } = useSnackbarStore();
 const snackbar = useSnackbar();
-let idProductSelected =  null;
+let idProductSelected = null;
 const state = reactive({
     products: productStore.products
 })
@@ -36,11 +39,8 @@ const confirmDeleteDialog = (idProduct) => {
 function deleteProduct() {
     openDeleteDialog.value = false;
     productStore.deleteProduct(idProductSelected);
-    snackbar.add({
-    type: 'success',
-    text: 'Product correctly deleted.'
-})
-    
+    showSnackbar('success', 'Product correctly modified.');
+
 }
 
 onMounted(() => {

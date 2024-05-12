@@ -1,10 +1,6 @@
 <template>
     <div>
-        <div style="display: flex; justify-content: end;">
-                <v-btn variant="flat" color="error" class="me-4" @click="router.push('/login')">
-                            {{ C.BACK + ' to LOGIN'}}
-                        </v-btn>
-            </div>
+        <BackButton :label="C.BACK + ' to LOGIN'" :route="'/login'"></BackButton>
         <form @submit.prevent="submit">
             <v-row class="justify-center align-center">
                 <v-col cols="12" md="5">
@@ -30,10 +26,6 @@
                         :error-messages="repeatPassword.errorMessage.value" :label="C.REPEAT_PASSWORD"></v-text-field>
 
                     <div id="buttons-container">
-
-                        <v-btn class="me-4" color="error" @click="router.push('/login');">
-                            {{ C.BACK }}
-                        </v-btn>
                         <v-btn class="me-4" @click="handleReset">
                             {{ C.RESET }}
                         </v-btn>
@@ -53,8 +45,10 @@
 import { CONSTANTS as C } from '~/constants/constants';
 import { useField, useForm, useIsFormValid } from 'vee-validate';
 import { useAuthStore } from '~/store/authStore';
+import { useSnackbarStore } from '~/store/snackbarStore';
 const router = useRouter();
 const authStore = await useAuthStore();
+const { showSnackbar } = useSnackbarStore();
 const { handleSubmit, handleReset } = useForm({
     validationSchema: {
         firstName(value: string | any[]) {
@@ -113,11 +107,7 @@ const submit = handleSubmit(async (values: any) => {
     authStore.addUser(newUser);
     localStorage.setItem('users', JSON.stringify(authStore.users));
     router.push('/');
-    snackbar.add({
-        type: 'success',
-        text: 'User correctly added.'
-    })
-
+    showSnackbar('success', 'User correctly added.');
 })
 
 </script>
