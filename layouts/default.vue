@@ -12,6 +12,7 @@
 
                     <v-spacer></v-spacer>
 
+                    <v-btn icon="mdi-account" variant="text" @click="router.push('/profile');" title="Account"></v-btn>
                     <v-btn icon="mdi-logout" variant="text" @click="logout" title="logout"></v-btn>
                 </v-app-bar>
 

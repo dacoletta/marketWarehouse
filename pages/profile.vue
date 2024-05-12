@@ -24,14 +24,15 @@ import { CONSTANTS as C } from '~/constants/constants';
 import { useProfileStore } from '~/store/profileStore';
 const profileStore = useProfileStore();
 const getProfileValue = (): any => {
-    let profileData = profileStore;
+    let profileData = profileStore.profile;
     if (Object.values(profileStore.profile).every(value => value === '')) {
         profileData = JSON.parse(localStorage.getItem('profile') || '{}');
         profileStore.setProfileByStorage();
     }
     return profileData;
 }
-const { lastName, username, firstName, email, image } = await getProfileValue();
+const profile = getProfileValue()
+const { lastName, username, firstName, email, image } = profile;
 const gender = profileStore.profile.gender == 'male' ? 'M' : 'F';
 // image
 
