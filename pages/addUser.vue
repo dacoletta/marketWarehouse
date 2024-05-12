@@ -93,8 +93,13 @@ const gender = useField('gender');
 const username = useField('username');
 const password = useField('password');
 const repeatPassword = useField('repeatPassword');
-// Default gender
+
+// Set default gender
 gender.value.value = "M";
+
+/**
+ * Form management finded of Vuetify form > Vee Validate
+ */
 const submit = handleSubmit(async (values: any) => {
     const { firstName, lastName, gender, username, password, email } = values;
     const obj = { firstName, lastName, gender, username, password, email };
@@ -106,7 +111,8 @@ const submit = handleSubmit(async (values: any) => {
     })
         .then(res => res.json())
         .then(res => newUser = res);
-    // Salvo nello state e in localstorage
+
+    // Save new user
     authStore.addUser(newUser);
     localStorage.setItem('users', JSON.stringify(authStore.users));
     router.push('/');

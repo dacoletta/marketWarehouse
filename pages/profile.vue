@@ -35,6 +35,8 @@ const getProfileValue = (): any => {
 const profile = getProfileValue()
 let { lastName, username, firstName, email, image } = profile;
 const gender = getGender(profileStore.profile.gender);
+
+// Force randomic image
 if(!image) {
     image = 'https://picsum.photos/200/300';
 }

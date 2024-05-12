@@ -1,5 +1,6 @@
 <template>
     <div>
+        <BackButton :label="C.PRODUCTS" :route="'/products'" :icon="'mdi-arrow-left'"></BackButton>
         <v-row>
             <v-col cols="12" sm="4">
                 <v-carousel>
@@ -15,7 +16,7 @@
                 <p>{{ product.price }}</p>
                 <h3 class="mt-2">Discount percentage</h3>
                 <p>{{ product.discountPercentage }} %</p>
-                <h3 class="mt-2">Rating ({{ product.rating }} / 5)</h3>
+                <h3 class="mt-2">Rating ({{ product.rating || 0 }} / 5)</h3>
                 <p><v-rating v-model="product.rating" readonly></v-rating></p>
                 
                 <h3 class="mt-2">Stock</h3>
@@ -35,10 +36,10 @@
 </template>
 
 <script setup lang="ts">
+import { CONSTANTS as C } from '~/constants/constants';
 import { useProductStore } from '~/store/productStore';
-
 const { idProduct } = useRoute().params;
-const productStore = await useProductStore();
+const productStore = useProductStore();
 let product: any;
 try {
     product = await fetch(`https://dummyjson.com/products/${idProduct}`).then(res => res.json());
@@ -46,7 +47,7 @@ try {
     throw new Error('Errore durante il recupero dei dettagli del prodotto');
   }
 } catch {
-    const products = await productStore.products;
+    const products = productStore.products;
     product = products.find((prod: any) => prod.id === +idProduct);
 }
 

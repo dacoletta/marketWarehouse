@@ -25,7 +25,6 @@ import { useSnackbarStore } from '~/store/snackbarStore';
 let openDeleteDialog = ref(false);
 const productStore = await useProductStore();
 const { showSnackbar } = useSnackbarStore();
-const snackbar = useSnackbar();
 let idProductSelected = null;
 const state = reactive({
     products: productStore.products
@@ -40,7 +39,6 @@ function deleteProduct() {
     openDeleteDialog.value = false;
     productStore.deleteProduct(idProductSelected);
     showSnackbar('success', 'Product correctly modified.');
-
 }
 
 onMounted(() => {

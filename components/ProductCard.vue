@@ -14,8 +14,6 @@
 
             <div class="d-flex justify-end"> 
                 <NuxtLink :to="`/products/${product.id}`">
-                <!-- <v-btn color="error">Explore</v-btn> -->
-                <!-- <v-btn append-icon="eye-outline" text=""></v-btn> -->
                 <v-btn icon class="btn-icon">
                     <v-icon>mdi-eye-outline</v-icon>
                 </v-btn>
@@ -26,8 +24,6 @@
                 </v-btn>
             </NuxtLink>
 
-            <!-- <v-btn color="orange-lighten-2" text="Elimina" @click="$emit('deleteProduct', product.id)"></v-btn> -->
-            <!-- <v-btn append-icon="delete" text="" @click="$emit('deleteProduct', product.id)"></v-btn> -->
             <v-btn icon class="btn-icon" @click="$emit('deleteProduct', product.id)">
                     <v-icon>mdi-delete</v-icon>
                 </v-btn>

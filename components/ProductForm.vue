@@ -26,19 +26,20 @@
                     <v-text-field v-model="category.value.value" :error-messages="category.errorMessage.value"
                         :label="C.CATEGORY"></v-text-field>
 
-                    <v-file-input prepend-icon="" :append-inner-icon="'mdi-paperclip'" v-model="files" :label="C.IMAGES" placeholder="Upload images"  multiple>
+                    <v-file-input prepend-icon="" :append-inner-icon="'mdi-paperclip'" v-model="files" :label="C.IMAGES"
+                        placeholder="Upload images" multiple>
                     </v-file-input>
 
 
-                        <div style="display: flex; justify-content: end;">
-                            <v-btn variant="flat" color="error" class="me-4" @click="handleReset">
-                                {{ C.CLEAR }}
-                            </v-btn>
+                    <div style="display: flex; justify-content: end;">
+                        <v-btn variant="flat" color="error" class="me-4" @click="handleReset">
+                            {{ C.CLEAR }}
+                        </v-btn>
 
-                            <v-btn variant="flat" color="success" type="submit">
-                                {{ C.CONFIRM }}
-                            </v-btn>
-                        </div>
+                        <v-btn variant="flat" color="success" type="submit">
+                            {{ C.CONFIRM }}
+                        </v-btn>
+                    </div>
 
                 </v-col>
             </v-row>
@@ -64,7 +65,6 @@
 import { CONSTANTS as C } from '~/constants/constants';
 import { useField, useForm } from 'vee-validate';
 import { useProductStore } from '~/store/productStore';
-import { routerKey } from 'vue-router';
 const router = useRouter();
 let openDialog = ref(false);
 let formValues: any = null;
@@ -82,27 +82,22 @@ const { handleSubmit, handleReset } = useForm({
         },
         brand(value: string | any[]) {
             if (value?.toString().length >= 2) return true
-
             return 'Brand needs to be at least 2 characters.'
         },
         price(value: string | any[]) {
             if (value?.toString().length >= 1) return true
-
             return 'Price needs to be at least 1 characters.'
         },
         stock(value: string | any[]) {
             if (value?.toString().length >= 1) return true
-
             return 'Stock needs to be at least 1 characters.'
         },
         discountPercentage(value: string | any[]) {
             if (value?.toString().length >= 1) return true
-
             return 'Discount percentage needs to be at least 1 characters.'
         },
         category(value: string | any[]) {
             if (value?.toString().length >= 1) return true
-
             return 'Category needs to be at least 1 characters.'
         },
     },
@@ -116,12 +111,9 @@ const discountPercentage = useField('discountPercentage');
 const stock = useField('stock');
 const brand = useField('brand');
 const category = useField<string>('category');
-const thumbnail = useField('thumbnail');
-const images = useField('images');
 const setInitialValues = async () => {
     if (idProduct) {
-        // Assegna i valori preimpostati solo una volta
-        let prod: any = await productStore.products;
+        let prod: any = productStore.products;
         prod = prod.find((prod: any) => prod.id === +idProduct);
         title.value.value = prod.title;
         description.value.value = prod.description;
@@ -133,7 +125,6 @@ const setInitialValues = async () => {
     }
 }
 
-setInitialValues();
 const submit = handleSubmit((values: any) => {
     formValues = values;
     openDialog.value = true;
@@ -143,6 +134,10 @@ const confirmForm = () => {
     emit('submitted', formValues);
     openDialog.value = false;
 }
+/**
+ * Populate fields if operation is EDIT
+ */
+setInitialValues();
 </script>
 
 <style lang="scss" scoped></style>

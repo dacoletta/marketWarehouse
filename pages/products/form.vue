@@ -45,6 +45,7 @@ const editProduct = async (formValue: any) => {
         productStore.updateProduct(res);
         showSnackbar('success', C.PRODUCT_CORRECTLY_MODIFIED);
       } else {
+        // Error because is a product create by us
         editManualProduct(formValue, idProduct);
       }
       
@@ -52,7 +53,13 @@ const editProduct = async (formValue: any) => {
     });
 }
 
+/**
+ * Edit manually product inserted
+ * @param formValue Values of form
+ * @param idProduct Id product
+ */
 const editManualProduct = (formValue: any, idProduct: any) => {
+  // Force id and image for mock service
   formValue.id = +idProduct;
   formValue.images = ['https://picsum.photos/200/300']
   productStore.updateProduct(formValue)

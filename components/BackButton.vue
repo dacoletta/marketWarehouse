@@ -12,7 +12,6 @@
 <script lang="ts" setup>
 const router = useRouter();
 const { label, route, icon } = defineProps(['label', 'route', 'icon']);
-console.log('ROUTE ', route)
 
 const goTo = () => {
   router.push(route);

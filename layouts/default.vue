@@ -60,6 +60,9 @@ const logout = () => {
     logUserOut();
     router.push('/login');
 };
+/**
+ * Array for the MENU
+ */
 const items = ref([
     { title: 'Products', to: '/products', condition: authenticated.value },
     { title: 'Profile', to: '/profile', condition: authenticated.value },
@@ -67,7 +70,9 @@ const items = ref([
     { title: 'Logout', to: '/', click: logout, condition: authenticated.value },
 ]);
 
-
+/**
+ * Watch: manage Snackbar (for operation succesfuls)
+ */
 watch(snack, () => {
     const { show, content, color } = snack.value;
     if (show) {
