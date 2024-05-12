@@ -73,7 +73,9 @@ const items = ref([
     { title: 'Logout', to: '/', click: logout, condition: authenticated.value },
 ]);
 
-
+/** 
+ * Set profile datas in toolbar if refresh page
+ */
 onMounted(async () => {
 
     if (profile.value) {
