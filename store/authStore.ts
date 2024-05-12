@@ -35,9 +35,7 @@ export const useAuthStore = defineStore('auth', {
       } else {
         const users = parseJson(localStorage.getItem('users'));
         const isInserted = users?.some((prod: any) => prod.username === username && prod.password === password);
-
         if (isInserted) {
-          debugger
           const token = useCookie('token');
           token.value = 'token';
           const i = users.findIndex((prod: any) => prod.username === username && prod.password === password)

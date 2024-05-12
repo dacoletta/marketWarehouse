@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import { useProductStore } from '~/store/productStore';
 import { useSnackbarStore } from '~/store/snackbarStore';
-
+import { CONSTANTS as C } from '~/constants/constants';
 const idProduct = useRoute().query.idProduct;
 const productStore = useProductStore();
 const { showSnackbar } = useSnackbarStore();
@@ -27,24 +27,35 @@ const createProduct = (formValue: any) => {
     .then(async (res) => {
       // Mock image
       res.images = ['https://picsum.photos/200/300']
-      await productStore.addProduct(res);
+      productStore.addProduct(res);
       localStorage.setItem('products', JSON.stringify(productStore.products));
-      showSnackbar('success', 'Product correctly created.');
+      showSnackbar('success', C.PRODUCT_CORRECTLY_CREATED);
       navigateTo('/products');
     });
 }
-const editProduct = (formValue: any) => {
-  fetch('https://dummyjson.com/products/' + idProduct, {
+const editProduct = async (formValue: any) => {
+  await fetch('https://dummyjson.com/products/' + idProduct, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(formValue)
   })
     .then(res => res.json())
     .then(async (res) => {
-      await productStore.updateProduct(res);
-      showSnackbar('success', 'Product correctly modified.');
+      if(!res.message) {
+        productStore.updateProduct(res);
+        showSnackbar('success', C.PRODUCT_CORRECTLY_MODIFIED);
+      } else {
+        editManualProduct(formValue, idProduct);
+      }
+      
       navigateTo('/products');
     });
+}
+
+const editManualProduct = (formValue: any, idProduct: any) => {
+  formValue.id = +idProduct;
+  formValue.images = ['https://picsum.photos/200/300']
+  productStore.updateProduct(formValue)
 }
 </script>
 

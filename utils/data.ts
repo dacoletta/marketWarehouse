@@ -11,3 +11,8 @@ export function getGender(gender: string) {
 export function parseJson(val: string | null) {
     return JSON.parse(val || '{}');
 }
+
+export function getNewId(arr: any[]) {
+    const maxId = arr.reduce((max, p) => (p.id > max ? p.id : max), 0);
+    return maxId + 1;
+}

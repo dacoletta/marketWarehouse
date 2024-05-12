@@ -31,5 +31,7 @@ export const CONSTANTS = {
     MSG_CONFIRM_FORM_TEXT: "Are you sure you want to confirm the entered data?",
     MSG_INVALID_CREDENTIALS_TITLE: "Login failed",
     MSG_INVALID_CREDENTIALS_TEXT: "Invalid credentials",
+    PRODUCT_CORRECTLY_MODIFIED: "Product correctly modified.",
+    PRODUCT_CORRECTLY_CREATED: "Product correctly created."
     
 }
