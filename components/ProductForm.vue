@@ -3,8 +3,8 @@
         <form @submit.prevent="submit">
             <div style="display: flex; justify-content: end;">
                 <v-btn variant="flat" color="error" class="me-4" @click="router.push('/products')">
-                            {{ C.BACK + ' to Products'}}
-                        </v-btn>
+                    {{ C.BACK + ' to Products' }}
+                </v-btn>
             </div>
             <v-row class="justify-center align-center">
                 <v-col cols="12" md="5">
@@ -30,16 +30,19 @@
                     <v-text-field v-model="category.value.value" :error-messages="category.errorMessage.value"
                         :label="C.CATEGORY"></v-text-field>
 
+                    <v-file-input prepend-icon="" :append-inner-icon="'mdi-paperclip'" v-model="files" :label="C.IMAGES" placeholder="Upload images"  multiple>
+                    </v-file-input>
 
-                    <div style="display: flex; justify-content: end;">
-                        <v-btn variant="flat" color="error" class="me-4" @click="handleReset">
-                            {{ C.CLEAR }}
-                        </v-btn>
 
-                        <v-btn variant="flat" color="success"  type="submit">
-                            {{ C.CONFIRM }}
-                        </v-btn>
-                    </div>
+                        <div style="display: flex; justify-content: end;">
+                            <v-btn variant="flat" color="error" class="me-4" @click="handleReset">
+                                {{ C.CLEAR }}
+                            </v-btn>
+
+                            <v-btn variant="flat" color="success" type="submit">
+                                {{ C.CONFIRM }}
+                            </v-btn>
+                        </div>
 
                 </v-col>
             </v-row>
@@ -70,6 +73,7 @@ const router = useRouter();
 let openDialog = ref(false);
 let formValues: any = null;
 const productStore = await useProductStore();
+const files = ref([]);
 const { handleSubmit, handleReset } = useForm({
     validationSchema: {
         title(value: string | any[]) {

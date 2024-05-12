@@ -27,7 +27,7 @@ const createProduct = (formValue: any) => {
   })
     .then(res => res.json())
     .then(async (res) => {
-      res.images = ['']
+      res.images = ['https://picsum.photos/200/300']
       await productStore.addProduct(res);
       localStorage.setItem('products', JSON.stringify(productStore.products));
       snackbar.add({

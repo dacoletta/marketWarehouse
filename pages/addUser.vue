@@ -14,9 +14,9 @@
 
                     <v-text-field v-model="firstName.value.value" :error-messages="firstName.errorMessage.value"
                         :label="C.FIRSTNAME"></v-text-field>
-                    <v-radio-group inline>
-                        <v-radio label="M" value="M" v-model="gender.value.value"></v-radio>
-                        <v-radio label="F" value="F" v-model="gender.value.value"></v-radio>
+                    <v-radio-group inline v-model="gender.value.value">
+                        <v-radio label="M" value="M" ></v-radio>
+                        <v-radio label="F" value="F"></v-radio>
                     </v-radio-group>
                     <v-text-field v-model="username.value.value" :error-messages="username.errorMessage.value"
                         :label="C.USERNAME"></v-text-field>
@@ -97,13 +97,12 @@ const username = useField('username');
 const password = useField('password');
 const repeatPassword = useField('repeatPassword');
 const snackbar = useSnackbar();
-gender.value.value = "F"
+// Default gender
+gender.value.value = "M"
 const submit = handleSubmit(async (values: any) => {
-    // Salvo i dati in un oggetto
     const obj = { firstName: values.firstName, lastName: values.lastName, gender: values.gender, username: values.username, password: values.password };
     let newUser = {};
-    // chiamo il servizio
-    const add = await fetch('https://dummyjson.com/users/add', {
+    await fetch('https://dummyjson.com/users/add', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(obj)

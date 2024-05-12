@@ -19,6 +19,7 @@ export const CONSTANTS = {
     FIRSTNAME: "Firstname",
     USERNAME: "Username",
     BACK: "Back",
+    IMAGES: "Images",
     MSG_CONFIRM_OPERATION: "Confirm operation",
     MSG_CONFIRM_DELETE_TITLE: "Confirm delete",
     MSG_CONFIRM_DELETE: "Are you sure you want to delete the selected product?",
