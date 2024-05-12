@@ -1,4 +1,6 @@
 export const CONSTANTS = {
+    APP_TITLE: "Market Warehouse",
+    APP_MINI_TITLE: "MW",
     TITLE: "Title",
     DESCRIPTION: "Description",
     PRICE: "Price",
@@ -21,6 +23,8 @@ export const CONSTANTS = {
     USERNAME: "Username",
     BACK: "Back",
     IMAGES: "Images",
+    ADD_PRODUCT: "Add product",
+    PRODUCTS: "Products",
     MSG_CONFIRM_OPERATION: "Confirm operation",
     MSG_CONFIRM_DELETE_TITLE: "Confirm delete",
     MSG_CONFIRM_DELETE: "Are you sure you want to delete the selected product?",

@@ -14,7 +14,7 @@ export const useProfileStore = defineStore({
     },
 
     setProfileByStorage() {
-      this.profile = JSON.parse(localStorage.getItem('profile') || '{}');
+      this.profile = parseJson(localStorage.getItem('profile'));
     }
   }
 })

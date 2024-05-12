@@ -21,7 +21,7 @@ onMounted(async () => {
   }
   // Se stato è vuoto ma local storage già popolato
   if(productStore.products.length === 0) {
-    const products = JSON.parse(localStorage.getItem('products') || '{}');
+    const products = parseJson(localStorage.getItem('products'));
     productStore.setProducts(products);
   }
   if(!localStorage.getItem('users')) {
@@ -29,7 +29,7 @@ onMounted(async () => {
     localStorage.setItem('users', JSON.stringify(authStore.users))
   }
   if(authStore.users.length === 0) {
-    const users = JSON.parse(localStorage.getItem('users') || '{}');
+    const users = parseJson(localStorage.getItem('users'));
     authStore.setUserList(users);
   }
 });

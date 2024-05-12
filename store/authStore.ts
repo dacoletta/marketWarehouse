@@ -25,22 +25,23 @@ export const useAuthStore = defineStore('auth', {
         },
       });
       this.loading = pending;
-
+      const profileStore = useProfileStore();
+      
       if (data.value) {
-        const token = useCookie('token'); // useCookie new hook in nuxt 3
-        token.value = data?.value?.token; // set token to cookie
-        this.authenticated = true; // set authenticated  state value to true
-        const profileStore = useProfileStore();
+        const token = useCookie('token');
+        token.value = data.value.token;
+        this.authenticated = true;
         profileStore.setProfile(data?.value);
       } else {
-        // Verifica se è utenza inserita a mano
-        const users = JSON.parse(localStorage.getItem('users') || '{}');
-        const isInserted = users?.some((prod: any) => { 
-          return prod.username === username && prod.password === password 
-        });
-        if(isInserted) {
-          const token = useCookie('token'); // useCookie new hook in nuxt 3
-          token.value = "token"; // set token to cookie
+        const users = parseJson(localStorage.getItem('users'));
+        const isInserted = users?.some((prod: any) => prod.username === username && prod.password === password);
+
+        if (isInserted) {
+          debugger
+          const token = useCookie('token');
+          token.value = 'token';
+          const i = users.findIndex((prod: any) => prod.username === username && prod.password === password)
+          profileStore.setProfile(users[i] || null);
         }
         this.authenticated = isInserted;
       }
@@ -49,6 +50,7 @@ export const useAuthStore = defineStore('auth', {
       const token = useCookie('token'); // useCookie new hook in nuxt 3
       this.authenticated = false; // set authenticated  state value to false
       token.value = null; // clear the token cookie
+      localStorage.removeItem('profile');
     },
     async fetchUserList() {
       await fetch('https://dummyjson.com/users')

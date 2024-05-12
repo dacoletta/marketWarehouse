@@ -1,6 +1,6 @@
 <template>
     <div>
-        <BackButton :label="C.BACK + ' to LOGIN'" :route="'/login'"></BackButton>
+        <BackButton :label="C.LOGIN" :route="'/login'" :icon="'mdi-arrow-left'"></BackButton>
         <form @submit.prevent="submit">
             <v-row class="justify-center align-center">
                 <v-col cols="12" md="5">
@@ -10,6 +10,8 @@
 
                     <v-text-field v-model="firstName.value.value" :error-messages="firstName.errorMessage.value"
                         :label="C.FIRSTNAME"></v-text-field>
+                    <v-text-field v-model="email.value.value" :error-messages="email.errorMessage.value"
+                        :label="C.EMAIL"></v-text-field>
                     <v-radio-group inline v-model="gender.value.value">
                         <v-radio label="M" value="M" ></v-radio>
                         <v-radio label="F" value="F"></v-radio>
@@ -86,15 +88,16 @@ let showPwd = ref(false);
 let showRepeatPwd = ref(false);
 const firstName = useField('firstName');
 const lastName = useField('lastName');
+const email = useField('email');
 const gender = useField('gender');
 const username = useField('username');
 const password = useField('password');
 const repeatPassword = useField('repeatPassword');
-const snackbar = useSnackbar();
 // Default gender
-gender.value.value = "M"
+gender.value.value = "M";
 const submit = handleSubmit(async (values: any) => {
-    const obj = { firstName: values.firstName, lastName: values.lastName, gender: values.gender, username: values.username, password: values.password };
+    const { firstName, lastName, gender, username, password, email } = values;
+    const obj = { firstName, lastName, gender, username, password, email };
     let newUser = {};
     await fetch('https://dummyjson.com/users/add', {
         method: 'POST',

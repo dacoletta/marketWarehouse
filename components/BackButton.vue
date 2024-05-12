@@ -1,7 +1,7 @@
 <template>
   <ClientOnly >
     <div id="backBtn">
-    <v-btn variant="flat" color="error" @click="goTo()">
+    <v-btn variant="flat" color="error" @click="goTo()" :prepend-icon="icon">
       {{ label }}
     </v-btn>
   </div>
@@ -11,7 +11,7 @@
 
 <script lang="ts" setup>
 const router = useRouter();
-const { label, route } = defineProps(['label', 'route']);
+const { label, route, icon } = defineProps(['label', 'route', 'icon']);
 console.log('ROUTE ', route)
 
 const goTo = () => {
@@ -23,4 +23,5 @@ const goTo = () => {
 #backBtn {
   display: flex; justify-content: end; margin-bottom: 1em;
 }
+
 </style>

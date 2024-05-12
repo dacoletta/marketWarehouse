@@ -1,6 +1,6 @@
 <template>
     <div class="content-page">
-        <BackButton :label="'CREATE PRODUCT'" :route="'/products/form'"></BackButton>
+        <BackButton :label="C.ADD_PRODUCT" :route="'/products/form'" :icon="'mdi-plus'"></BackButton>
         <v-row>
             <v-col v-for="p in state.products" :key="p.id" cols="12" sm="6" md="3" lg="3">
                 <ProductCard :product="p" @delete-product="confirmDeleteDialog"></ProductCard>

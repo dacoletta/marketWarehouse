@@ -7,13 +7,14 @@
                         v-if="authenticated"></v-app-bar-nav-icon>
 
                     <v-toolbar-title>
-                        <NuxtLink to="/">{{ title }}</NuxtLink>
+                        <NuxtLink to="/" class="d-none d-sm-none d-md-block">{{ C.APP_TITLE }}</NuxtLink>
+                        <NuxtLink to="/" class="d-sm-block d-md-none">{{ C.APP_MINI_TITLE }}</NuxtLink>
                     </v-toolbar-title>
 
                     <v-spacer></v-spacer>
-
-                    <v-btn icon="mdi-account" variant="text" @click="router.push('/profile');" title="Account"></v-btn>
-                    <v-btn icon="mdi-logout" variant="text" @click="logout" title="logout"></v-btn>
+                    <span v-if="authenticated">{{ profile.firstName + ' ' + profile.lastName}}</span>
+                    <v-btn v-if="authenticated" icon="mdi-account" variant="text" @click="router.push('/profile');" title="Account"></v-btn>
+                    <v-btn v-if="authenticated" icon="mdi-logout" variant="text" @click="logout" title="logout"></v-btn>
                 </v-app-bar>
 
                 <v-navigation-drawer v-model="drawer" :location="$vuetify.display.mobile ? 'left' : undefined"
@@ -45,13 +46,14 @@
 
 import { storeToRefs } from 'pinia'; // import storeToRefs helper hook from pinia
 import { useAuthStore } from '~/store/authStore';
+import { useProfileStore } from '~/store/profileStore';
 import { useSnackbarStore } from '~/store/snackbarStore';
-const title = 'Market Warehouse';
+import { CONSTANTS as C } from '~/constants/constants';
 const router = useRouter();
 let drawer = ref(false);
 const { snack } = storeToRefs(useSnackbarStore());
+const { profile } = storeToRefs(useProfileStore());
 const snackbar = useSnackbar();
-
 const { logUserOut } = useAuthStore(); // use authenticateUser action from  auth store
 const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive with storeToRefs
 const logout = () => {

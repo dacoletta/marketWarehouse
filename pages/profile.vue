@@ -1,6 +1,6 @@
 <template>
     <div>
-        <BackButton :label="'VIEW PRODUCTS'" :route="'/products'"></BackButton>
+        <BackButton :label="C.PRODUCTS" :route="'/products'" :icon="'mdi-arrow-left'"></BackButton>
         <v-row class="justify-center align-center text-center">
             <v-col cols="12" md="5">
                 <v-img id="profile-image"
@@ -22,21 +22,22 @@
 <script setup lang="ts">
 import { CONSTANTS as C } from '~/constants/constants';
 import { useProfileStore } from '~/store/profileStore';
+import { parseJson } from '~/utils/data';
 const profileStore = useProfileStore();
 const getProfileValue = (): any => {
     let profileData = profileStore.profile;
-    if (Object.values(profileStore.profile).every(value => value === '')) {
-        profileData = JSON.parse(localStorage.getItem('profile') || '{}');
+    if (isEmptyObjectValues(profileData)) {
+        profileData = parseJson(localStorage.getItem('profile'));
         profileStore.setProfileByStorage();
     }
     return profileData;
 }
 const profile = getProfileValue()
-const { lastName, username, firstName, email, image } = profile;
-const gender = profileStore.profile.gender == 'male' ? 'M' : 'F';
-// image
-
-
+let { lastName, username, firstName, email, image } = profile;
+const gender = getGender(profileStore.profile.gender);
+if(!image) {
+    image = 'https://picsum.photos/200/300';
+}
 </script>
 
 <style lang="scss" scoped>
@@ -48,6 +49,7 @@ const gender = profileStore.profile.gender == 'male' ? 'M' : 'F';
 #profile-image {
     margin-bottom: 2em;
     width: 300px;
+    height: 300px;
     margin-right: auto;
     margin-left: auto
 }

@@ -41,7 +41,7 @@ a.custom-link {
 
 @media (max-width: 600px) {
     .v-toolbar-title {
-      font-size: 15px;
+      font-size: 15px !important;
     }
     .content-page {
         padding: 2em;
@@ -84,3 +84,7 @@ nav a.router-link-exact-active {
     text-decoration: none;
     color: #d32f2f;
 }
+
+div#backBtn button i.v-icon {
+    color: white;
+  }

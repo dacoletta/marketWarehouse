@@ -2,11 +2,7 @@
     <div>
         <v-row>
             <v-col cols="12" sm="4">
-                <!-- <v-img height="200px" :src="product.images[0]"></v-img> -->
                 <v-carousel>
-                    <!-- <v-carousel-item v-for="(image, index) in product.images" :key="index">
-                        <v-img src="https://cdn.vuetifyjs.com/images/cards/hotel.jpg"></v-img>
-                    </v-carousel-item> -->
                     <v-carousel-item v-for="(image, index) in product?.images" :key="index" :src="image" cover></v-carousel-item>
                 </v-carousel>
             </v-col>

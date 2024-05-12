@@ -1,7 +1,7 @@
 <template>
     <div>
         <form @submit.prevent="submit">
-            <BackButton :label="C.BACK + ' to Products'" :route="'/products'"></BackButton>
+            <BackButton :label="C.PRODUCTS" :route="'/products'" :icon="'mdi-arrow-left'"></BackButton>
             <v-row class="justify-center align-center">
                 <v-col cols="12" md="5">
                     <v-text-field v-model="title.value.value" :error-messages="title.errorMessage.value"
