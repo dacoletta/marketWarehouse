@@ -62,6 +62,7 @@ const logout = () => {
     logUserOut();
     router.push('/login');
 };
+
 /**
  * Array for the MENU
  */
