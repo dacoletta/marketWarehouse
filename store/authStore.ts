@@ -1,9 +1,11 @@
 import { defineStore } from 'pinia';
+import { useProfileStore } from './profileStore';
 
 interface UserPayloadInterface {
   username: string;
   password: string;
 }
+
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -28,6 +30,8 @@ export const useAuthStore = defineStore('auth', {
         const token = useCookie('token'); // useCookie new hook in nuxt 3
         token.value = data?.value?.token; // set token to cookie
         this.authenticated = true; // set authenticated  state value to true
+        const profileStore = useProfileStore();
+        profileStore.setProfile(data?.value);
       } else {
         // Verifica se è utenza inserita a mano
         const users = JSON.parse(localStorage.getItem('users') || '{}');

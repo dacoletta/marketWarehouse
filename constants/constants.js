@@ -10,6 +10,7 @@ export const CONSTANTS = {
     CONFIRM: "Confirm",
     CLEAR: "Clear",
     PASSWORD: "Password",
+    EMAIL: "E-mail",
     REPEAT_PASSWORD: "Repeat password",
     LOGIN: "Login",
     USE_DEFAULT_VALUES: "Use default values",
