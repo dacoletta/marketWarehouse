@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-card class="mx-auto">
+        <v-card class="mx-auto custom-card">
             <v-img height="200px" :src="product.images[0]" cover></v-img>
 
             <v-card-title>
@@ -40,6 +40,7 @@ const { product } = defineProps(['product']);
 </script>
 
 <style scoped>
+
 a {
     text-decoration: none;
 }</style>
