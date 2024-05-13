@@ -25,8 +25,6 @@
                 <p>{{ product.brand }}</p>
                 <h3 class="mt-2">Category</h3>
                 <p>{{ product.category }}</p>
-                <h3 class="mt-2">Thumbnail</h3>
-                <p>{{ product.thumbnail }}</p>
             </v-col>
             <v-col>
 
