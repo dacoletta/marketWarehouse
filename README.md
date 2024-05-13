@@ -23,6 +23,7 @@ Important: when a new product is created a random image is generated as "product
 - Vue v.3.4.21 https://vuejs.org/
 - Nuxt v. 3.11.2 https://nuxt.com/
 - Vuetify v. 3.6.4 https://vuetifyjs.com/
+- Pinia v. 0.5.1 https://pinia.vuejs.org/
 
 ## Sources
 - Datas for CRUD operation: https://dummyjson.com/
