@@ -9,26 +9,33 @@
                             cover></v-carousel-item>
                     </v-carousel>
                     <v-text-field v-model="title.value.value" :error-messages="title.errorMessage.value"
-                        :label="C.TITLE"></v-text-field>
+                        :label="C.TITLE + '*'"></v-text-field>
 
                     <v-textarea v-model="description.value.value" :counter="300"
-                        :error-messages="description.errorMessage.value" :label="C.DESCRIPTION"></v-textarea>
+                        :error-messages="description.errorMessage.value" :label="C.DESCRIPTION + '*'"></v-textarea>
 
-                    <v-text-field v-model="price.value.value" :error-messages="price.errorMessage.value"
-                        :label="C.PRICE"></v-text-field>
+                    <!-- <v-text-field v-model="price.value.value" :error-messages="price.errorMessage.value"
+                        :label="C.PRICE"></v-text-field> -->
+                    <v-number-input controlVariant="default" :label="C.PRICE + ' (€)' + '*'" v-model="price.value.value"
+                        :error-messages="price.errorMessage.value"></v-number-input>
 
-                    <v-text-field v-model="discountPercentage.value.value"
+                    <!-- <v-text-field v-model="discountPercentage.value.value"
                         :error-messages="discountPercentage.errorMessage.value"
-                        :label="C.DISCOUNT_PERCENTAGE"></v-text-field>
+                        :label="C.DISCOUNT_PERCENTAGE"></v-text-field> -->
+                    <v-number-input controlVariant="default" :label="C.DISCOUNT_PERCENTAGE + ' (%)' + '*'"
+                        v-model="discountPercentage.value.value"
+                        :error-messages="discountPercentage.errorMessage.value"></v-number-input>
 
-                    <v-text-field v-model="stock.value.value" :error-messages="stock.errorMessage.value"
-                        :label="C.STOCK"></v-text-field>
+                    <!-- <v-text-field v-model="stock.value.value" :error-messages="stock.errorMessage.value"
+                        :label="C.STOCK"></v-text-field> -->
+                    <v-number-input controlVariant="default" :label="C.STOCK + '*'" v-model="stock.value.value"
+                        :error-messages="stock.errorMessage.value"></v-number-input>
 
                     <v-text-field v-model="brand.value.value" :error-messages="brand.errorMessage.value"
-                        :label="C.BRAND"></v-text-field>
+                        :label="C.BRAND + '*'"></v-text-field>
 
                     <v-text-field v-model="category.value.value" :error-messages="category.errorMessage.value"
-                        :label="C.CATEGORY"></v-text-field>
+                        :label="C.CATEGORY + '*'"></v-text-field>
 
                     <v-file-input prepend-icon="" :append-inner-icon="'mdi-paperclip'" v-model="files" :label="C.IMAGES"
                         placeholder="Upload images" multiple>
@@ -63,11 +70,11 @@
 
 <script setup lang="ts">
 import { CONSTANTS as C } from '~/constants/constants';
-import { useField, useForm } from 'vee-validate';
+import { useField, useForm, useIsFormValid } from 'vee-validate';
 import { useProductStore } from '~/store/productStore';
 let openDialog = ref(false);
 let formValues: any = null;
-const productStore = await useProductStore();
+const productStore = useProductStore();
 const files = ref([]);
 const { handleSubmit, handleReset } = useForm({
     validationSchema: {
@@ -85,15 +92,17 @@ const { handleSubmit, handleReset } = useForm({
         },
         price(value: string | any[]) {
             if (value?.toString().length >= 1) return true
-            return 'Price needs to be at least 1 characters.'
+            return 'Price needs to be at least 1 number.'
         },
         stock(value: string | any[]) {
             if (value?.toString().length >= 1) return true
-            return 'Stock needs to be at least 1 characters.'
+            return 'Stock needs to be at least 1 number.'
         },
         discountPercentage(value: string | any[]) {
+            if (+value >= 100) return 'The percentage cannot be greater than 100';
             if (value?.toString().length >= 1) return true
-            return 'Discount percentage needs to be at least 1 characters.'
+            
+            return 'Discount percentage needs to be at least 1 number.'
         },
         category(value: string | any[]) {
             if (value?.toString().length >= 1) return true
@@ -111,6 +120,7 @@ const stock = useField('stock');
 const brand = useField('brand');
 const category = useField<string>('category');
 let images: any = ref(null);
+
 const setInitialValues = async () => {
     if (idProduct) {
         let prod: any = productStore.products;
@@ -127,7 +137,7 @@ const setInitialValues = async () => {
 }
 
 const setImages = (prod: any) => {
-    if(prod.images.length > 0) {
+    if (prod.images.length > 0) {
         images = prod.images;
     } else {
         images.push(`https://picsum.photos/200/300?random=${getRandomNumber()}`, `https://picsum.photos/200/300?random=${getRandomNumber()}`, `https://picsum.photos/200/300?random=${getRandomNumber()}`);

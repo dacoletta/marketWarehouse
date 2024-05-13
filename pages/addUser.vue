@@ -49,7 +49,7 @@ import { useField, useForm, useIsFormValid } from 'vee-validate';
 import { useAuthStore } from '~/store/authStore';
 import { useSnackbarStore } from '~/store/snackbarStore';
 const router = useRouter();
-const authStore = await useAuthStore();
+const authStore = useAuthStore();
 const { showSnackbar } = useSnackbarStore();
 const { handleSubmit, handleReset } = useForm({
     validationSchema: {
