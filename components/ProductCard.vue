@@ -40,4 +40,6 @@ const { product } = defineProps(['product']);
 </script>
 
 <style scoped>
-</style>
+a {
+    text-decoration: none;
+}</style>
