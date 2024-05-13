@@ -1,7 +1,16 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
 export default defineNuxtConfig({
+  app: {
+    head: {
+      title: 'Market Warehouse',
+      link: [
+        { rel: "icon", type: "image/png", href: "/market-icon.png" }
+      ]
+    }
+  },
   devtools: { enabled: true },
+  
   // Import Vuetify
   build: {
     transpile: ['vuetify'],
