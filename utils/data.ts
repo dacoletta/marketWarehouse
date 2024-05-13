@@ -17,3 +17,7 @@ export function getNewId(arr: any[]) {
     if(maxId < 100) maxId = 100;
     return maxId + 1;
 }
+
+export function getRandomNumber() {
+    return Math.floor(Math.random() * (1000 - 1 + 1)) + 1;
+}

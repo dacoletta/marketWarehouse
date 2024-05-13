@@ -38,7 +38,7 @@ const gender = getGender(profileStore.profile.gender);
 
 // Force randomic image
 if(!image) {
-    image = 'https://picsum.photos/200/300';
+    image = `https://picsum.photos/200/300?random=${getRandomNumber()}`;
 }
 </script>
 

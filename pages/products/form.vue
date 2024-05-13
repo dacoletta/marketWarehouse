@@ -26,7 +26,8 @@ const createProduct = (formValue: any) => {
     .then(res => res.json())
     .then(async (res) => {
       // Mock image
-      res.images = ['https://picsum.photos/200/300']
+      res.images = [`https://picsum.photos/200/300?random=${getRandomNumber()}`];
+      
       productStore.addProduct(res);
       localStorage.setItem('products', JSON.stringify(productStore.products));
       showSnackbar('success', C.PRODUCT_CORRECTLY_CREATED);
@@ -61,7 +62,7 @@ const editProduct = async (formValue: any) => {
 const editManualProduct = (formValue: any, idProduct: any) => {
   // Force id and image for mock service
   formValue.id = +idProduct;
-  formValue.images = ['https://picsum.photos/200/300']
+  formValue.images = [`https://picsum.photos/200/300?random=${getRandomNumber()}`];
   productStore.updateProduct(formValue)
 }
 </script>

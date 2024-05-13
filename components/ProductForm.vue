@@ -130,7 +130,7 @@ const setImages = (prod: any) => {
     if(prod.images.length > 0) {
         images = prod.images;
     } else {
-        images.push('https://picsum.photos/200/300', 'https://picsum.photos/200/400', 'https://picsum.photos/200/500');
+        images.push(`https://picsum.photos/200/300?random=${getRandomNumber()}`, `https://picsum.photos/200/300?random=${getRandomNumber()}`, `https://picsum.photos/200/300?random=${getRandomNumber()}`);
     }
 }
 const submit = handleSubmit((values: any) => {
